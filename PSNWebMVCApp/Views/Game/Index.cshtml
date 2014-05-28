@@ -1,0 +1,77 @@
+﻿@model IEnumerable<PSNWebMVCApp.Models.Game>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Platform)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageString)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Difficulty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DifficultyPoints)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Completed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Owned)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RarityPoints)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Platform)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImageString)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Difficulty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DifficultyPoints)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Completed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Owned)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RarityPoints)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+
+@Html.
