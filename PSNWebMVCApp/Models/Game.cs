@@ -23,5 +23,6 @@ namespace PSNWebMVCApp.Models
         public string Completed { get; set; }
         public string Owned { get; set; }
         public string RarityPoints { get; set; }
+        public string Link { get; set; }
     }
 }

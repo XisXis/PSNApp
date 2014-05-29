@@ -21,6 +21,7 @@
     <Property Name="Completed" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Owned" Type="nvarchar(max)" Nullable="false" />
     <Property Name="RarityPoints" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Link" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -42,6 +43,7 @@
           <Property Name="Completed" Type="String" Nullable="false" />
           <Property Name="Owned" Type="String" Nullable="false" />
           <Property Name="RarityPoints" Type="String" Nullable="false" />
+          <Property Name="Link" Type="String" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -61,6 +63,7 @@
           <ScalarProperty Name="Completed" ColumnName="Completed" />
           <ScalarProperty Name="Owned" ColumnName="Owned" />
           <ScalarProperty Name="RarityPoints" ColumnName="RarityPoints" />
+          <ScalarProperty Name="Link" ColumnName="Link" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

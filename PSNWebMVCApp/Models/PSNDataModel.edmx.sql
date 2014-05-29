@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/29/2014 00:15:33
--- Generated from EDMX file: c:\users\xis\documents\visual studio 2013\Projects\PSNWebMVCApp\PSNWebMVCApp\Models\PSNDataModel.edmx
+-- Date Created: 05/29/2014 01:09:35
+-- Generated from EDMX file: C:\Users\Xis\documents\visual studio 2013\Projects\PSNWebMVCApp\PSNWebMVCApp\Models\PSNDataModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -40,7 +40,8 @@ CREATE TABLE [dbo].[GameSet] (
     [DifficultyPoints] nvarchar(max)  NOT NULL,
     [Completed] nvarchar(max)  NOT NULL,
     [Owned] nvarchar(max)  NOT NULL,
-    [RarityPoints] nvarchar(max)  NOT NULL
+    [RarityPoints] nvarchar(max)  NOT NULL,
+    [Link] nvarchar(max)  NOT NULL
 );
 GO
 

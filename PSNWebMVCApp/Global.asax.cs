@@ -16,6 +16,7 @@ namespace PSNWebMVCApp
     {
         protected void Application_Start()
         {
+            System.Data.Entity.Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseIfModelChanges<PSNWebMVCApp.Models.GameContext>());
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);

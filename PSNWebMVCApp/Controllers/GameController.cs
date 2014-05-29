@@ -83,7 +83,14 @@ namespace PSNWebMVCApp.Controllers
             doc.LoadXml(xml);
             XmlNodeList gamesTitleList = doc.SelectNodes("//*[@class='gameTitle']");
 
-            return View();
+            foreach (XmlNode game in gamesTitleList)
+            {
+                Game newGame = new Game();
+                newGame.Title = game.InnerText;
+                Create(newGame);
+            }
+
+            return View("Index");
         }
 
         //
