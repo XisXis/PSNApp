@@ -4,6 +4,10 @@
     ViewBag.Title = "Index";
 }
 
+<script src="~/Scripts/jquery-1.9.1.js"></script>
+<script src="~/Scripts/jquery-ui-1.9.2.js"></script>
+<script src="~/Scripts/jtable/jquery.jtable.js"></script>
+<link href="~/Scripts/jtable/themes/metro/blue/jtable.css" rel="stylesheet" />
 <h2>Index</h2>
 
 <p>
@@ -14,7 +18,13 @@
     @Html.ActionLink("Login", "Index", "Login")
 </p>
 
-<table>
+@using (Html.BeginForm("UpdateMyGames", "Login", FormMethod.Post))
+{
+    <input type="submit" value="Update My Games" />
+}
+
+
+@*<table>
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Title)
@@ -37,9 +47,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Owned)
         </th>
-        @*<th>
+        <th>
             @Html.DisplayNameFor(model => model.RarityPoints)
-        </th>*@
+        </th>
         <th>
         @Html.DisplayNameFor(model => model.Link)
         </th>
@@ -69,9 +79,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.Owned)
         </td>
-        @*<td>
+        <td>
             @Html.DisplayFor(modelItem => item.RarityPoints)
-        </td>*@
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Link)
         </td>
@@ -83,6 +93,69 @@
     </tr>
 }
 
-</table>
+</table>*@
+
+<div id="GamesTableContainer"></div>
+
+<script type="text/javascript">
+ 
+    $(document).ready(function () {
+ 
+        $('#GamesTableContainer').jtable({
+            title: 'The Games List',
+            paging: true, //Enable paging
+            pageSize: 20, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            defaultSorting: 'Title ASC', //Set default sorting
+            actions: {
+                listAction: '/Game/IndexGamesSorting'
+            },
+            fields: {
+                Id: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                Title: {
+                    title: 'Title',
+                    width: '23%'
+                },
+                Platform: {
+                    title: 'Platform'
+                },
+                ImageString: {
+                    title: 'Image',
+                    display: function (data) {
+                        return "<img src='" + data.record.ImageString + "' alt='Image' />";
+                    }
+                },
+                Difficulty: {
+                    title: 'Difficulty'
+                },
+                DifficultyPoints: {
+                    title: 'Difficulty Points'
+                },
+                Completed: {
+                    title: 'Completed'
+                },
+                Owned: {
+                    title: 'Owned'
+                },
+                RarityPoints: {
+                    title: 'Rarity Points'
+                },
+                Link: {
+                    title: 'Link',
+                    list: false
+                }
+            }
+        });
+ 
+        //Load student list from server
+        $('#GamesTableContainer').jtable('load');
+    });
+ 
+</script>
 
 @Html.ActionLink("Update Games", "UpdateGames")

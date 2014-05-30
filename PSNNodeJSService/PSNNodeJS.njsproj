@@ -19,7 +19,6 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
-    <Content Include="Code.txt" />
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Compile Include="index.js" />

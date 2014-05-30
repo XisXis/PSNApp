@@ -28,6 +28,7 @@ namespace PSNWebMVCApp.Controllers
             string resultStr = System.Text.Encoding.UTF8.GetString(resultBytes);
             if (resultStr.Contains("SUCCESS"))
             {
+                ViewBag.UserName = userName;
                 return RedirectToAction("Index", "Game");
             }
             else
@@ -35,6 +36,24 @@ namespace PSNWebMVCApp.Controllers
                 return View("Index");
             }
             
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdateMyGames()
+        {
+            var myWebClient = new WebClient();
+            string urlString = String.Format("http://localhost:3000/PSN/{0}", ViewBag.UserName);
+            var resultBytes = await myWebClient.DownloadDataTaskAsync(urlString);
+            string resultStr = System.Text.Encoding.UTF8.GetString(resultBytes);
+            if (resultStr.Contains("SUCCESS"))
+            {
+                return RedirectToAction("Index", "Game");
+            }
+            else
+            {
+                return View("Index");
+            }
+
         }
 
     }

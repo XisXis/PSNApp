@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using PSNWebMVCApp.Models;
 using System.Xml;
 using System.Net;
+using System.Linq.Dynamic;
 
 namespace PSNWebMVCApp.Controllers
 {
@@ -21,6 +22,43 @@ namespace PSNWebMVCApp.Controllers
         public ActionResult Index()
         {
             return View(db.Games.ToList());
+        }
+
+
+        [HttpPost]
+        public JsonResult IndexGamesSorting(int jtStartIndex = 0, int jtPageSize = 0, string jtSorting = null)
+        {
+            try
+            {
+                //Get data from database
+                int gamesCount = db.Games.ToList().Count;
+                List<Game> games = db.Games.AsQueryable().OrderBy(jtSorting).Skip((jtStartIndex) * jtPageSize).Take(jtPageSize).ToList();
+
+                //Return result to jTable
+                return Json(new { Result = "OK", Records = games, TotalRecordCount = gamesCount });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult IndexGames()
+        {
+            try
+            {
+                //Get data from database
+                int gamesCount = db.Games.ToList().Count;
+                List<Game> games = db.Games.ToList();
+
+                //Return result to jTable
+                return Json(new { Result = "OK", Records = games, TotalRecordCount = gamesCount });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
         }
 
         //
