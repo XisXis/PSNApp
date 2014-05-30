@@ -1,0 +1,11 @@
+﻿protected async void Page_Load(object sender, EventArgs e)
+        {
+            if (Page.IsPostBack)
+            {
+                string userName = TextboxUser.Text;
+                string password = TextboxPassword.Text;
+                var myWebClient = new WebClient();
+                string urlString = String.Format("http://localhost:3000/PSN/Login/{0}/{1}", userName, password);
+                string resultStr = await myWebClient.DownloadStringTaskAsync(urlString);
+            }
+        }

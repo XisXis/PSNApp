@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using PSNWebMVCApp.Models;
 using System.Xml;
+using System.Net;
 
 namespace PSNWebMVCApp.Controllers
 {
@@ -53,44 +54,72 @@ namespace PSNWebMVCApp.Controllers
             {
                 return View();
             }
-
-            string html;
-            //html = http.QuickGetStr("http://www.exophase.com/platform/ps3-games/");
-            html = http.QuickGetStr("http://psntrophyleaders.com/games/1?sort=title-all-asc");
-            if (html == null)
+            for (int i = 1; i < 79; i++)
             {
-                //TextBox1.Text += http.LastErrorText + "\r\n";
-                return View();
+                string html;
+                string url = String.Format("http://psntrophyleaders.com/games/{0}?sort=title-all-asc", i.ToString());
+                html = http.QuickGetStr(url);
+                if (html == null)
+                {
+                    //TextBox1.Text += http.LastErrorText + "\r\n";
+                    return View();
+                }
+
+                Chilkat.HtmlToXml htmlToXml = new Chilkat.HtmlToXml();
+
+                success = htmlToXml.UnlockComponent("30-day trial");
+                if (success != true)
+                {
+                    return View();
+                }
+
+                htmlToXml.XmlCharset = "utf-8";
+                htmlToXml.Html = html;
+
+                string xml;
+                xml = htmlToXml.ToXml();
+
+                //success = htmlToXml.WriteStringToFile(xml, "C:/temp/out.xml", "utf-8");
+
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(xml);
+                //XmlNodeList gamesList = doc.SelectNodes("//*[@class='gameMain']");
+                XmlNodeList titleNodeList = doc.SelectNodes("//*[@class='gameTitle']");
+                //XmlNodeList platformNodeList = doc.SelectNodes("//*[contains(concat(' ', @class, ' '), ' platformlabel ')]");
+                XmlNodeList platformNodeList = doc.SelectNodes("//*[@class='gameHeadSpace']");
+                XmlNodeList imageStringNodeList = doc.SelectNodes("//*[@class='game-image-cell']");
+                XmlNodeList difficultyNodeList = doc.SelectNodes("//*[@class='difficultyText']");
+                XmlNodeList difficultyPointsNodeList = doc.SelectNodes("//*[@class='difficultyPoints']");
+                XmlNodeList completedNodeList = doc.SelectNodes("//*[@class='numcomplete']");
+                XmlNodeList ownedNodeList = doc.SelectNodes("//*[@class='num_played']");
+                XmlNodeList linkNodeList = doc.SelectNodes("//*[@class='user-select']");
+                int count = 0;
+                foreach (XmlNode titleNode in titleNodeList)
+                {
+                    Game newGame = new Game();
+                    //Title
+                    newGame.Title = titleNodeList[count].InnerText;
+                    //Platform
+                    newGame.Platform = platformNodeList[count].InnerText;
+                    //ImageString
+                    newGame.ImageString = imageStringNodeList[count].Attributes["src"].Value;
+                    //Difficulty
+                    newGame.Difficulty = difficultyNodeList[count].InnerText;
+                    //DifficultyPoints
+                    newGame.DifficultyPoints = difficultyPointsNodeList[count].InnerText;
+                    //Completed
+                    newGame.Completed = completedNodeList[count].InnerText;
+                    //Owned
+                    newGame.Owned = ownedNodeList[count].InnerText;
+                    //Link
+                    newGame.Link = linkNodeList[count*2].Attributes["href"].Value;
+
+                    Create(newGame);
+                    count++;
+                }
             }
 
-            Chilkat.HtmlToXml htmlToXml = new Chilkat.HtmlToXml();
-
-            success = htmlToXml.UnlockComponent("30-day trial");
-            if (success != true)
-            {
-                return View();
-            }
-
-            htmlToXml.XmlCharset = "utf-8";
-            htmlToXml.Html = html;
-
-            string xml;
-            xml = htmlToXml.ToXml();
-
-            success = htmlToXml.WriteStringToFile(xml, "C:/temp/out.xml", "utf-8");
-
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(xml);
-            XmlNodeList gamesTitleList = doc.SelectNodes("//*[@class='gameTitle']");
-
-            foreach (XmlNode game in gamesTitleList)
-            {
-                Game newGame = new Game();
-                newGame.Title = game.InnerText;
-                Create(newGame);
-            }
-
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
         //

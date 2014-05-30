@@ -1,0 +1,20 @@
+﻿@model PSNWebMVCApp.Models.Login
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm("Login", "Login", FormMethod.Post))
+{
+    <p>
+        @Html.LabelFor(model => model.Username): @Html.EditorFor(model => model.Username)
+    </p>
+    <p>
+        @Html.LabelFor(model => model.Password): @Html.EditorFor(model => model.Password)
+    </p>
+
+    <input type="submit" value="Login" />
+}
+

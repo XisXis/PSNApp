@@ -9,6 +9,11 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+<p>
+    @Html.ActionLink("Login", "Index", "Login")
+</p>
+
 <table>
     <tr>
         <th>
@@ -32,9 +37,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Owned)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.RarityPoints)
-        </th>
+        </th>*@
         <th>
         @Html.DisplayNameFor(model => model.Link)
         </th>
@@ -64,9 +69,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.Owned)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.RarityPoints)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.Link)
         </td>

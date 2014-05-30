@@ -133,6 +133,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\GameController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -140,6 +141,7 @@
       <DependentUpon>PSNDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GameContext.cs" />
+    <Compile Include="Models\Login.cs" />
     <Compile Include="Models\PSNDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -268,6 +270,7 @@
     <Content Include="Views\Game\Create.cshtml" />
     <Content Include="Views\Game\Edit.cshtml" />
     <Content Include="Views\Game\Delete.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
